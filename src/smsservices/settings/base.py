@@ -13,7 +13,9 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CONF_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJ_DIR = os.path.dirname(CONF_DIR)
+REPO_DIR = os.path.dirname(PROJ_DIR)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -75,7 +77,7 @@ WSGI_APPLICATION = 'smsservices.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(PROJ_DIR, 'db.sqlite3'),
     }
 }
 
@@ -114,3 +116,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Geo
+GEO_LITE2 = os.path.join(CONF_DIR, 'data', 'GeoLite2-Country_20180206', 'GeoLite2-Country.mmdb')
