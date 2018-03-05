@@ -2,6 +2,7 @@ import random
 import phonenumbers
 import geoip2.database
 from django.conf import settings
+from .qcloudsms import ssender as qc_sender
 
 reader = geoip2.database.Reader(settings.GEO_LITE2)
 
@@ -23,6 +24,7 @@ class SMSService(object):
           符合国际标准的手机号码， e.g.: +8618612491222
 
         """
+        assert phone.isnumeric()
         try:
             # 验证手机号码
             pn = phonenumbers.parse("+{}".format(phone))
@@ -37,3 +39,17 @@ class SMSService(object):
         if phonenumbers.is_valid_number(pn):
             return "+{}{}".format(country_code, phone)
         raise ValueError("{} is not valid phone")
+
+    @classmethod
+    def send(cls, phone, msg, again=False):
+        if again:
+            return cls.send_captcha_aliyun(phone, msg)
+        return cls.send_captch_qcloudsms(phone, msg)
+
+    @staticmethod
+    def send_captch_qcloudsms(phone, msg):
+        return qc_sender.send(0, phone, msg)
+
+    @staticmethod
+    def send_captcha_aliyun(phone, msg):
+        pass

@@ -28,3 +28,8 @@ class SMSServiceTest(TestCase):
         actually = SMSService.generate_phone(phone, ip)
         self.assertEqual(expected, actually)
 
+    def test_send(self):
+        msg = '[{0}]: {1} 是您的{0}验证码'.format("币小秘", SMSService.generate_captcha())
+        phone = '+8618612491222'
+        actually = SMSService.send(phone, msg)
+        self.assertEqual(False, True)
