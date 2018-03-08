@@ -10,8 +10,19 @@ class TextSMS(View):
     """Text类型的短信验证码"""
 
     def post(self, request, *args, **kwargs):
-        """"""
+        """
+
+        Args:
+            request:
+            *args:
+            **kwargs:
+
+        Returns:
+
+        """
         try:
+            to = None  # 邮箱/手机
+            scenario = None  # 使用场景
             body = json.loads(request.body.decode('utf-8'))
             name = body.get("name", "温馨提示")  # 公司名称
             bit = body.get('bit', 4)  # 验证码的位数
